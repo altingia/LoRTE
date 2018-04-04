@@ -1,0 +1,32 @@
+>Complete path to the Reference Genome:
+/home/user/LoRTE/my_reference_genome.fa
+
+>Complete path to the TE list:
+/home/user/LoRTE/my_TE_List
+
+>Complete path to the Reads:
+/home/user/LoRTE/my_PacBio_reads
+
+>Complete path of the TE consensus:
+/home/user/LoRTE/my_TE_consensus_list.fa
+
+>Name of results folder: (full path+folder, it will be created)
+/home/user/LoRTE/my_results
+
+>E-vaLue for BLASTN & MEGABLAST:
+1e-40
+
+>Read coverage of your reads
+10
+
+>Format of the TE list:  nameTE,nameContig,SStart,SStop,Sens('XXXXX'if not defined), separator_col, first line of data(line 0 can be descriptive of a blast output) ex:0,3,2,4,"XXXXX","\t",0 for a BLAST output file in which the order would be: nameTE, qstart, qend, Subject, Sstart, Sstop separated by tabulation, orientation is not precised, start with no description line) 
+4,1,2,3,5,'t',0
+
+>Maximum window size between two flanking sequences: 
+10000
+
+>Length of the flanking sequences that will be collected
+200
+
+>Number of CPU to be used
+2
