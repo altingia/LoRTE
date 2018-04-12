@@ -63,7 +63,7 @@ maximum_length_TE = int(args.window)
 #Length of flanking sequence that will be exctracted:
 length_flank_seq = int(args.length)
 #Number of cores blast can use to run:
-numthread = str(args.numthread)
+number_cores = str(args.numthread)
 
 #Creating results folder.
 os.system('mkdir -p '+name_folder_results) 
