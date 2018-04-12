@@ -55,9 +55,9 @@ name_file_flank_step2=name_file_flank+'2'
 e_value = str(args.evalue)
 #Genome equivalent (reads total length/ reference genome length):
 sequencing_dept = float(args.depth)
-#Ordre of the elements in the blast input you entered:
+#Order of the elements in the blast input you entered:
 order_output = str(args.format)
-ordre_output=ordre_output.split(",")
+order_output=order_output.split(",")
 #Maximum length beetween two alligned flanking sequence to consider possible TE:
 maximum_length_TE = int(args.window)
 #Length of flanking sequence that will be exctracted:
