@@ -9,6 +9,8 @@
 #PBS -m ae
 #PBS -j oe
 
+cd $PBS_O_WORKDIR
+
 output_dir="/lustre1/sh60271/LoRTE/0412_test"
 mkdir -p $output_dir
 rm -rf $output_dir/*
