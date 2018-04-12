@@ -16,5 +16,7 @@ mkdir -p $output_dir
 rm -rf $output_dir/*
 
 module load python/2.7.8
+module load ncbiblast+/2.6.0
+
 input_dir="/lustre1/sh60271/LoRTE/0411_test/Input_files"
 python LoRTEv1_2_pa.py -r $input_dir/Genome_Dmel5.fa -L $input_dir/List_TE_Dmel5 -i $input_dir/Test_Pacbio_Dmel_1X_Coverage.fa -c $input_dir/Consensus_TE_Droso.fa -o $output_dir/output -n 27
