@@ -48,17 +48,20 @@ path_consensus_TE = str(args.consensus)
 name_folder_results = str(args.output)
 if name_folder_results[-1]=="/":
 	name_folder_results=name_folder_results[0:-1]
+name_file_flank=name_folder_results+'/Out'
+name_file_flank_step2=name_file_flank+'2'
 
 #EValue for all aligments (Blastn/megablast):
 e_value = str(args.evalue)
 #Genome equivalent (reads total length/ reference genome length):
-sequencing_dept = str(args.depth)
+sequencing_dept = float(args.depth)
 #Ordre of the elements in the blast input you entered:
-ordre_output = str(args.format)
+order_output = str(args.format)
+ordre_output=ordre_output.split(",")
 #Maximum length beetween two alligned flanking sequence to consider possible TE:
-maximum_length_TE = str(args.window)
+maximum_length_TE = int(args.window)
 #Length of flanking sequence that will be exctracted:
-length_flank_seq = str(args.length)
+length_flank_seq = int(args.length)
 #Number of cores blast can use to run:
 numthread = str(args.numthread)
 
@@ -1935,8 +1938,8 @@ def CleanAllDuplicateLines(fileDuplicateLines):
 
 
 #Creating sorted TE list: def sorterTE(blastOutput,TE_name,chromosome_name,Start,Stop,senss,collumn_separation,first_blast_line):
-separator=str(ordre_output[5])
-path_TE_annotated=sorterTE(path_TE_annotated,int(ordre_output[0]),int(ordre_output[1]),int(ordre_output[2]),int(ordre_output[3]),(ordre_output[4]),separator,int(ordre_output[6])) #replaced '\t' by separator !!!!!!!!!!!!!!!!!!!!!!!!!
+separator=str(order_output[5])
+path_TE_annotated=sorterTE(path_TE_annotated,int(order_output[0]),int(order_output[1]),int(order_output[2]),int(order_output[3]),(order_output[4]),separator,int(order_output[6])) #replaced '\t' by separator !!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 #Creating Signle line fasta file
