@@ -1935,10 +1935,6 @@ def CleanAllDuplicateLines(fileDuplicateLines):
 #######################################################################
 
 #				# main #					#
-start = time.time()
-end = time.time()
-time = end - start
-
 
 #Creating sorted TE list: def sorterTE(blastOutput,TE_name,chromosome_name,Start,Stop,senss,collumn_separation,first_blast_line):
 
