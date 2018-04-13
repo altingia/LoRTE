@@ -14,10 +14,6 @@ cd $PBS_O_WORKDIR
 module load python/2.7.8
 module load ncbiblast+/2.6.0
 
-virtualenv venv
-source venv/bin/activate
-pip install biopython
-
 dir="/lustre1/sh60271/LoRTE/0413_test"
 mkdir -p $dir
 rm -rf $dir/*
@@ -36,5 +32,3 @@ rm -rf $output_dir/*
 
 input_dir="/lustre1/sh60271/LoRTE/0411_test/Input_files"
 python LoRTEv1_2_pa_time.py -r $input_dir/Genome_Dmel5.fa -L $input_dir/List_TE_Dmel5 -i $input_dir/Test_Pacbio_Dmel_1X_Coverage.fa -c $input_dir/Consensus_TE_Droso.fa -o $output_dir/output -n 2
-
-deactivate
