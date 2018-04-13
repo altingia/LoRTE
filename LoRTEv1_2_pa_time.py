@@ -1942,8 +1942,8 @@ separator=str(order_output[5])
 start = time.time()
 path_TE_annotated=sorterTE(path_TE_annotated,int(order_output[0]),int(order_output[1]),int(order_output[2]),int(order_output[3]),(order_output[4]),separator,int(order_output[6])) #replaced '\t' by separator !!!!!!!!!!!!!!!!!!!!!!!!!
 end = time.time()
-time = end - start
-log.write('Creating sorted TE list:' + time + "\n")
+runtime = str(end -start)
+log.write('Creating sorted TE list:' + runtime +"\n")
 
 #Creating Signle line fasta file
 print('Input files being converted in single line Fasta style.')
@@ -1951,8 +1951,8 @@ start = time.time()
 path_pacbio=MonoLineFasta(path_pacbio)
 path_ref_genome=MonoLineFasta(path_ref_genome)
 end = time.time()
-time = end - start
-log.write('Creating Signle line fasta file:' + time + "\n")
+runtime = str(end -start)
+log.write('Creating Signle line fasta file:' + runtime +"\n")
 log.write('Input files transphormed in single line Fasta style.'+"\n")
 
 
@@ -1960,8 +1960,8 @@ log.write('Input files transphormed in single line Fasta style.'+"\n")
 start = time.time()
 (myFile3prim,myFile5prim)=create_flanq_file(path_TE_annotated, path_ref_genome,name_file_flank)
 end = time.time()
-time = end - start
-log.write('Creating flank 5,3 files:' + time + "\n")
+runtime = str(end -start)
+log.write('Creating flank 5,3 files:' + runtime +"\n")
 
 print("Creation of the References Genome db file.")
 time.sleep(1)
@@ -1977,14 +1977,14 @@ NonResolvable=name_folder_results+'/UnresolvableStep1'
 start = time.time()
 BlastFlanking5OnRef=MEGABLAST(path_ref_genome,myFile5prim,e_value)
 end = time.time()
-time = end - start
-log.write('BlastFlanking5OnRef:' + time + "\n")
+runtime = str(end -start)
+log.write('BlastFlanking5OnRef:' + runtime +"\n")
 
 start = time.time()
 cleaningFlank(BlastFlanking5OnRef,myFile5prim,NonResolvable)
 end = time.time()
-time = end - start
-log.write('cleaningFlank:' + time + "\n")
+runtime = str(end -start)
+log.write('cleaningFlank:' + runtime +"\n")
 BlastFlanking3OnRef=MEGABLAST(path_ref_genome,myFile3prim,e_value)
 cleaningFlank(BlastFlanking3OnRef,myFile3prim,NonResolvable)
 
@@ -2000,15 +2000,15 @@ log.write('Alignment of flanking sequence on Reads'+"\n")
 start = time.time()
 myFile3primblast=MEGABLAST(path_pacbio,myFile3prim,e_value)
 end = time.time()
-time = end - start
-log.write('myFile3primblast:' + time + "\n")
+runtime = str(end -start)
+log.write('myFile3primblast:' + runtime +"\n")
 myFile5primblast=MEGABLAST(path_pacbio,myFile5prim,e_value)
 print("Cleaning megalast alignment")
 start = time.time()
 CleanerBlastOutput0Hits(myFile3primblast)
 end = time.time()
-time = end - start
-log.write('CleanerBlastOutput0Hits:' + time + "\n")
+runtime = str(end -start)
+log.write('CleanerBlastOutput0Hits:' + runtime +"\n")
 CleanerBlastOutput0Hits(myFile5primblast)
 print("File 3' & 5' cleaned")
 log.write("File 3&5  megablast created and cleaned"+"\n")
@@ -2020,16 +2020,16 @@ log.write("Pooling megablast aligments."+"\n")
 start = time.time()
 (flankpooled,sequencePooled,threePrimOnly,fivePrimOnly)=FlankingAlignmentAnalyser(myFile3primblast,myFile5primblast,path_pacbio)
 end = time.time()
-time = end - start
-log.write('Extracting sequence in the reads:' + time + "\n")
+runtime = str(end -start)
+log.write('Extracting sequence in the reads:' + runtime +"\n")
 
 #Limiting he number of sequence
 log.write("Limiting he number of sequence."+"\n")
 start = time.time()
 sequencePooledClean=SequenceCleaner(sequencePooled,'both')
 end = time.time()
-time = end - start
-log.write('SequenceCleaner:' + time + "\n")
+runtime = str(end -start)
+log.write('SequenceCleaner:' + runtime +"\n")
 threePrimOnlyClean=SequenceCleaner(threePrimOnly,'three')
 fivePrimOnlyClean=SequenceCleaner(fivePrimOnly,'five')
 print("Files cleaned.")
@@ -2048,14 +2048,14 @@ log.write("DB file done. Alignment of extracted sequences on the consensus"+"\n"
 start = time.time()
 nomBlast53=BLAST(sequencePooledClean,path_consensus_TE,e_value)
 end = time.time()
-time = end - start
-log.write('nomBlast53:' + time + "\n")
+runtime = str(end -start)
+log.write('nomBlast53:' + runtime +"\n")
 
 start = time.time()
 nomBlast3=BLAST(threePrimOnlyClean,path_consensus_TE,e_value)
 end = time.time()
-time = end - start
-log.write('nomBlast3:' + time + "\n")
+runtime = str(end -start)
+log.write('nomBlast3:' + runtime +"\n")
 
 nomBlast5=BLAST(fivePrimOnlyClean,path_consensus_TE,e_value)
 
@@ -2065,8 +2065,8 @@ print("Cleanning blastn output")
 start = time.time()
 zeroHitStepOne53=CleanerBlastOutput0Hits(nomBlast53)
 end = time.time()
-time = end - start
-log.write('zeroHitStepOne53:' + time + "\n")
+runtime = str(end -start)
+log.write('zeroHitStepOne53:' + runtime +"\n")
 
 zeroHitStepOne5=CleanerBlastOutput0Hits(nomBlast5)
 zeroHitStepOne3=CleanerBlastOutput0Hits(nomBlast3)
@@ -2081,8 +2081,8 @@ log.write("Creating file containing length of sequences 0 hits Blastn"+"\n")
 start = time.time()
 StepOne053=LengthExtractorZeroHits(sequencePooledClean,zeroHitStepOne53)
 end = time.time()
-time = end - start
-log.write('StepOne053:' + time + "\n")
+runtime = str(end -start)
+log.write('StepOne053:' + runtime +"\n")
 
 StepOne05=LengthExtractorZeroHits(fivePrimOnlyClean,zeroHitStepOne5)
 StepOne03=LengthExtractorZeroHits(threePrimOnlyClean,zeroHitStepOne3)
@@ -2101,8 +2101,8 @@ nameOutputSumupOne=name_folder_results+"/"
 start = time.time()
 (smallNegative,sumUpStepOne,polymorph1,Line_Header)=CreateSumUp(StepOne53,StepOne5,StepOne3,StepOne053,StepOne05,StepOne03,path_TE_annotated,nameOutputSumupOne,NonResolvable,1)
 end = time.time()
-time = end - start
-log.write('CreateSumUp:' + time + "\n")
+runtime = str(end -start)
+log.write('CreateSumUp:' + runtime +"\n")
 log.write("Divers data for the sum up:\n %s \n\n" %(Line_Header))
 
 smallNegativeSeparated=SeparatorInput(smallNegative)
