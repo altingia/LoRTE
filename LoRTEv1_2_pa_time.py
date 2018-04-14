@@ -400,9 +400,9 @@ def create_flanq_file(te_anoo, genomee,Output_filename):
 			else:
 				I+=1
 		i+=1
-		advancement=(i*100)/lenght_TE_file
-		sys.stdout.write("\r%d%%" % advancement)
-		sys.stdout.flush()
+		# advancement=(i*100)/lenght_TE_file
+		# sys.stdout.write("\r%d%%" % advancement)
+		# sys.stdout.flush()
 	
 	#Creating 3' file
 	file_name_3prim=(Output_filename+"-3prim")
@@ -511,9 +511,9 @@ def FlankingAlignmentAnalyser(Blast_file,blastTwo_file,genomePacBio_file):
 				I+=1
 
 		n+=1 #+1 first megablas and go for an other round !! 
-		ii=(n*100)/length_blastfileONE
-		sys.stdout.write("\r%d%%" % ii)
-		sys.stdout.flush()
+		# ii=(n*100)/length_blastfileONE
+		# sys.stdout.write("\r%d%%" % ii)
+		# sys.stdout.flush()
 	#Saving data:
 	lesflankreunit = open(Blast_file+"-Read-53both-IDs", "w")
 	for wtf in list_IDflank_same_contig:
@@ -722,9 +722,9 @@ def SequenceCleaner(input_file,input_type):
 							list_to_Save.append(fasta[memory_position])
 							list_to_Save.append(fasta[memory_position+1])
 				x+=2
-			ii=(x*100)/length_fasta
-			sys.stdout.write("\r%d%%" % ii)
-   			sys.stdout.flush()
+			# ii=(x*100)/length_fasta
+			# sys.stdout.write("\r%d%%" % ii)
+   			# sys.stdout.flush()
 
 
 
@@ -788,9 +788,9 @@ def SequenceCleaner(input_file,input_type):
 							list_to_Save.append(fasta[memory_position])
 							list_to_Save.append(fasta[memory_position+1])
 				x+=2
-			ii=(x*100)/length_fasta
-			sys.stdout.write("\r%d%%" % ii)
-   			sys.stdout.flush()	
+			# ii=(x*100)/length_fasta
+			# sys.stdout.write("\r%d%%" % ii)
+   			# sys.stdout.flush()	
    			
    	#The most important: 5' and 3' flanking did align on contig/read.			
 	elif input_type=="both":
@@ -824,9 +824,9 @@ def SequenceCleaner(input_file,input_type):
 						list_to_Save.append(fasta[memory_position])
 						list_to_Save.append(fasta[memory_position+1])
 			x+=+2
-			ii=(x*100)/length_fasta
-			sys.stdout.write("\r%d%%" % ii)
-   			sys.stdout.flush()
+			# ii=(x*100)/length_fasta
+			# sys.stdout.write("\r%d%%" % ii)
+   			# sys.stdout.flush()
 
 	else:
 		print('Error')
@@ -1162,9 +1162,9 @@ def CleanerDuplicateBlastn(cheminConsensus,cheminSortieBlastn):
 							print(i)
 			n+=1 #Small loop
 		i+=1 #Big loop
-		ii=(i*100)/(lengthListHit)
-		sys.stdout.write("\r%d%%" % ii)
-		sys.stdout.flush()
+		# ii=(i*100)/(lengthListHit)
+		# sys.stdout.write("\r%d%%" % ii)
+		# sys.stdout.flush()
 	listHit=list(set(listHit))
 	outputfilename=open(cheminSortieBlastn+'-CleanPy','w')
 	outputfilename.write(header+'\n')
@@ -1507,9 +1507,9 @@ def CreateSumUp(The53,The5,The3,The053,The05,The03,listOfTransposons,outputName,
 			#Format of tabular output:
 			listResults.append(str(xname)+'\t'+str(numberHitPositif)+'\t'+str(numberHitNegative)+'\t'+str(Small)+'\t'+str(Big)+'\t'+bilanprov)
 			i+=1
-		ii=(i*100)/tailleF
-		sys.stdout.write("\r%d%%" % ii)
-		sys.stdout.flush()
+		# ii=(i*100)/tailleF
+		# sys.stdout.write("\r%d%%" % ii)
+		# sys.stdout.flush()
 		
 	
 	#Pos file:
@@ -1984,7 +1984,7 @@ start = time.time()
 cleaningFlank(BlastFlanking5OnRef,myFile5prim,NonResolvable)
 end = time.time()
 runtime = str(end -start)
-log.write('cleaningFlank:' + runtime +"\n")
+log.write('cleaningFlank 5OnRef:' + runtime +"\n")
 BlastFlanking3OnRef=MEGABLAST(path_ref_genome,myFile3prim,e_value)
 cleaningFlank(BlastFlanking3OnRef,myFile3prim,NonResolvable)
 
@@ -2029,8 +2029,12 @@ start = time.time()
 sequencePooledClean=SequenceCleaner(sequencePooled,'both')
 end = time.time()
 runtime = str(end -start)
-log.write('SequenceCleaner:' + runtime +"\n")
+log.write('SequenceCleaner,sequencePooled:' + runtime +"\n")
+start = time.time()
 threePrimOnlyClean=SequenceCleaner(threePrimOnly,'three')
+end = time.time()
+runtime = str(end -start)
+log.write('SequenceCleaner,threePrimOnly:' + runtime +"\n")
 fivePrimOnlyClean=SequenceCleaner(fivePrimOnly,'five')
 print("Files cleaned.")
 log.write("Files cleaned"+"\n")
@@ -2080,10 +2084,6 @@ log.write("Creating file containing length of sequences 0 hits Blastn"+"\n")
 
 start = time.time()
 StepOne053=LengthExtractorZeroHits(sequencePooledClean,zeroHitStepOne53)
-end = time.time()
-runtime = str(end -start)
-log.write('StepOne053:' + runtime +"\n")
-
 StepOne05=LengthExtractorZeroHits(fivePrimOnlyClean,zeroHitStepOne5)
 StepOne03=LengthExtractorZeroHits(threePrimOnlyClean,zeroHitStepOne3)
 #LengthExtractorHitPositives(fichierSeqExtraite,fichierBlast):
@@ -2091,7 +2091,9 @@ log.write("Creating file containing length of sequences Blastn"+"\n")
 StepOne53=LengthExtractorHitPositives(sequencePooledClean,nomBlast53)
 StepOne5=LengthExtractorHitPositives(fivePrimOnlyClean,nomBlast5)
 StepOne3=LengthExtractorHitPositives(threePrimOnlyClean,nomBlast3)
-
+end = time.time()
+runtime = str(end -start)
+log.write('LengthExtractorZeroHits:' + runtime +"\n")
 
 log.write("Generating sum up files \n")
 #def bila nteur(le53,le5,le3,le053,le05,le03,listetrouver)
@@ -2105,15 +2107,21 @@ runtime = str(end -start)
 log.write('CreateSumUp:' + runtime +"\n")
 log.write("Divers data for the sum up:\n %s \n\n" %(Line_Header))
 
+start = time.time()
 smallNegativeSeparated=SeparatorInput(smallNegative)
 smallNegativeSequences=ExtractorFinalSequences(smallNegativeSeparated,path_pacbio,path_ref_genome,path_TE_annotated)
 smallNegativeOccurence=CreateFinalSumup(smallNegativeSequences,Line_Header,1,sumUpStepOne)
-
+end = time.time()
+runtime = str(end -start)
+log.write('CreateFinalSumup:' + runtime +"\n")
 
 #Polymorphs:
+start = time.time()
 polymorph1Separated=SeparatorInput(polymorph1)
 polymorph1Final=ExtractorFinalSequences(polymorph1Separated,path_pacbio,path_ref_genome,path_TE_annotated)
-
+end = time.time()
+runtime = str(end -start)
+log.write('Polymorphs:' + runtime +"\n")
 
 
 ###
@@ -2124,7 +2132,11 @@ polymorph1Final=ExtractorFinalSequences(polymorph1Separated,path_pacbio,path_ref
 #Cleanning read from previous detected transposons.
 print('Cleaning PacBio reads')
 log.write('Cleaning PacBio reads'+"\n")
+start = time.time()
 path_reads_clean=PacBionetoyeurBlastn(nomBlast5,nomBlast3,nomBlast53,path_pacbio)#!!!!!!!!!!!! The one function I still can't convert...
+end = time.time()
+runtime = str(end -start)
+log.write('PacBionetoyeurBlastn:' + runtime +"\n")
 log.write("Cleaning done"+"\n")
 
 
@@ -2133,11 +2145,19 @@ path_consensus_TE=MonoLineFasta(path_consensus_TE)
 makedb(path_reads_clean)
 log.write("Db file on PacBio reads done"+"\n")
 print("Blastn: Alignments of the TE consensus on the reads.")
+start = time.time()
 fileBlastSecondStep=BLAST2(path_consensus_TE,path_reads_clean,e_value)#Max target 1==> only the consensus that match the most is saved.
+end = time.time()
+runtime = str(end -start)
+log.write('Second blastn:' + runtime +"\n")
 log.write("Second blastn done."+"\n")
 log.write("Cleaning Blast output "+"\n")
 TEabsentReadCycle2=CleanerBlastOutput0Hits(fileBlastSecondStep)
+start = time.time()
 fileBlastSecondStep=CleanerDuplicateBlastn(path_consensus_TE,fileBlastSecondStep)
+end = time.time()
+runtime = str(end -start)
+log.write('CleanerDuplicateBlastn:' + runtime +"\n")
 
 #1- sorterTE(SortieBlast,nomTE,nomKro,Start,Stop,sens,separation_collones):
 #Remplie celon les paramettre de blast
@@ -2148,12 +2168,19 @@ ListTeSecondStep=sorterTE(fileBlastSecondStep,1,0,2,3,'+++++++','\t',1)
 
 #Creating flank file of step two.
 log.write("Creating step 2 flanking sequence files."+"\n")
+start = time.time()
 (Flank3primV2,Flank5primV2)=create_flanq_file(ListTeSecondStep,path_reads_clean,name_file_flank_step2)
-
+end = time.time()
+runtime = str(end -start)
+log.write('create_flanq_file:' + runtime +"\n")
 
 #Alignment of flanking sequence on reference genome.
 print('Alignment of the flanking sequence on the reference genome')
+start = time.time()
 myFile3primblastV2=MEGABLAST(path_ref_genome,Flank3primV2,e_value)
+end = time.time()
+runtime = str(end -start)
+log.write('MEGABLAST, 3prim:' + runtime +"\n")
 myFile5primblastV2=MEGABLAST(path_ref_genome,Flank5primV2,e_value)
 log.write("Megablast of flanking sequences on the reference genome done."+"\n")
 
@@ -2163,35 +2190,49 @@ print('Cleaning megablast output.')
 CleanerBlastOutput0Hits(myFile5primblastV2)
 CleanerBlastOutput0Hits(myFile3primblastV2)
 NonResolvable2=name_folder_results+'/UnresolvableStep2'
+start = time.time()
 myFile5primblastV2=cleaningFlankMegablast(myFile5primblastV2,Flank5primV2,NonResolvable2)
+end = time.time()
+runtime = str(end -start)
+log.write('cleaningFlankMegablast, 5prim:' + runtime +"\n")
 myFile3primblastV2=cleaningFlankMegablast(myFile3primblastV2,Flank3primV2,NonResolvable2)
 
 
 #Extracting sequence of interest:
 print("Comparing megablast alignments")
 log.write("Comparing megablast alignments"+"\n")
+start = time.time()
 (flankpooledV2,sequencepooledV2,threePrimOnly2,fivePrimOnly2)=FlankingAlignmentAnalyser(myFile3primblastV2,myFile5primblastV2,path_ref_genome)
+end = time.time()
+runtime = str(end -start)
+log.write('FlankingAlignmentAnalyser:' + runtime +"\n")
 print("Sequence of interest exctracted")
 
 
 #Cleaning sequences:
 print("Cleaning extracted sequences")
+start = time.time()
 sequencepooledV2pur=SequenceCleaner(sequencepooledV2,'both')
 threePrimOnly2Clean=SequenceCleaner(threePrimOnly2,'three')
 fivePrimOnly2Clean=SequenceCleaner(fivePrimOnly2,'five')
-
+end = time.time()
+runtime = str(end -start)
+log.write('SequenceCleaner:' + runtime +"\n")
 
 
 #Blast of the extracted sequence on the TE consensus:
 print("Alignment of the sequence of interest on the consensus")
 log.write("Alignment of the extracted sequence on the TE consensus, and cleaning 0 hits."+"\n")
+start = time.time()
 blast253=BLAST(sequencepooledV2pur,path_consensus_TE,e_value)
 zerohitC253=CleanerBlastOutput0Hits(blast253)
 blast23=BLAST(threePrimOnly2Clean,path_consensus_TE,e_value)
 zerohitC23=CleanerBlastOutput0Hits(blast23)
 blast25=BLAST(fivePrimOnly2Clean,path_consensus_TE,e_value)
 zerohitC25=CleanerBlastOutput0Hits(blast25)
-
+end = time.time()
+runtime = str(end -start)
+log.write('CleanerBlastOutput0Hits:' + runtime +"\n")
 
 #Creating the other files needed for the sum up:
 print("Creating files needed for the sum up of step two.")
@@ -2207,10 +2248,14 @@ C23=LengthExtractorHitPositives(fivePrimOnly2Clean,blast25)
 #Creating sum up of step two:
 log.write("Creation of the sum up: \n")
 nameOutputSumUpTwo=name_folder_results+"/"
+start = time.time()
 (newInsertions,FileSumUpTwo,polymorph2,Line_Header2)=CreateSumUp(C253,C25,C23,C2053,C205,C203,ListTeSecondStep,nameOutputSumUpTwo,NonResolvable2,2)
-
+end = time.time()
+runtime = str(end -start)
+log.write('CreateSumUp:' + runtime +"\n")
 
 #Checking and joinning all new insertion found: (If they come from the same locus sequenced multiple times)
+start = time.time()
 print("Joining multiple sequenced locus as one ")
 aa=rassembleurhitnegatifsequences(Flank5primV2,Flank3primV2,newInsertions)
 makedb(aa)
@@ -2219,18 +2264,27 @@ at=SimpleBlast(aa,aa)
 at=SimpleCleanBlast(at)
 print('Merging elements.')
 (aaa,filecompteurhit)=traitementCouvSurEuxMeme(at,aa)
-
+end = time.time()
+runtime = str(end -start)
+log.write('Checking and joinning all new insertion found:' + runtime +"\n")
 
 #ExtractorFinalSequences(filefinaleneg,genome,reads,blast):
+start = time.time()
 print('Creating final results.')
 zoooo=ExtractorFinalSequences(aaa,path_ref_genome,path_reads_clean,ListTeSecondStep)
 finalite2=CreateFinalSumup(zoooo,Line_Header,2,FileSumUpTwo)
-
+end = time.time()
+runtime = str(end -start)
+log.write('ExtractorFinalSequences:' + runtime +"\n")
 
 #Final clean of final fills: clears all duplicate lines for an easy to read file
+start = time.time()
 CleanAllDuplicateLines(smallNegativeOccurence)
 CleanAllDuplicateLines(polymorph1Final)
 CleanAllDuplicateLines(finalite2)
+end = time.time()
+runtime = str(end -start)
+log.write('Final clean of final fills:' + runtime +"\n")
 
 
 
@@ -2239,6 +2293,7 @@ CleanAllDuplicateLines(finalite2)
 
 
 #Creating the polymorph step 2 files, who depends on the finalite2 file and the reads purified:
+start = time.time()
 results=finalite2
 path_reads=path_reads_clean
 
@@ -2269,15 +2324,20 @@ saveFlank.close()
 
 #File name
 fileFlanquing=aa+'cured'
+end = time.time()
+runtime = str(end -start)
+log.write('Creating the polymorph step 2 files:' + runtime +"\n")
 
 
 
 
 
 
-
-
+start = time.time()
 blastForPoly=MEGABLAST(path_reads,fileFlanquing,'1e-40')
+end = time.time()
+runtime = str(end -start)
+log.write('blastForPoly:' + runtime +"\n")
 #print('File output')
 #print(blastForPoly)
 #print('Opening file output')
@@ -2294,6 +2354,7 @@ with open(blastForPoly) as blastFilePoly:
 
 
 #Taking all the positiv match with no TE in it =3/4 of length of both flanking sequences:
+start = time.time()
 listOfGood=list()
 for x in blastFilePoly:
  if len(x)>0:
@@ -2340,9 +2401,12 @@ for x in listOfGood:
    dicoFullPolymorph[TEname].append(sequence)
   else:
    dicoFullPolymorph[TEname]=[header,sequence]
-
+end = time.time()
+runtime = str(end -start)
+log.write('Taking all the positiv match with no TE in it =3/4 of length of both flanking sequences:' + runtime +"\n")
 
 #Creating final list:
+start = time.time()
 insertionMoveToPoly=list()
 for x in dicoFullPolymorph:
  tooMove=(insertion[insertion.find(x):insertion.find("\n\n_",insertion.find(x))])
@@ -2350,8 +2414,12 @@ for x in dicoFullPolymorph:
  for y in dicoFullPolymorph[x]:
   insertionMoveToPoly.append(y)
  insertion=insertion.replace(tooMove,"")
+end = time.time()
+runtime = str(end -start)
+log.write('Creating final list:' + runtime +"\n")
 
 #Creating final files
+start = time.time()
 lastStep=open(results+'-Polymorph',"w")
 lastStep.write((str(len(dicoFullPolymorph)))+" insertions have been identified as having at least one polymorph variants in the reads.")
 for x in insertionMoveToPoly:
@@ -2374,7 +2442,9 @@ if finalNumber==0 and numberInsert!=0:
 finalStep.write(insertion)
 
 finalStep.close()
-
+end = time.time()
+runtime = str(end -start)
+log.write('Creating final files:' + runtime +"\n")
 
 
 
