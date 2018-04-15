@@ -11,7 +11,7 @@
 
 cd $PBS_O_WORKDIR
 
-output_dir="/lustre1/sh60271/LoRTE/0412_test"
+output_dir="/lustre1/sh60271/LoRTE/0414_test2"
 mkdir -p $output_dir
 rm -rf $output_dir/*
 
