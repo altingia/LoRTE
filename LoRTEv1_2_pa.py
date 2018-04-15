@@ -2333,6 +2333,7 @@ os.system("mv "+sumUpStepOne+" "+my_summary_file)
 
 
 os.system("mv "+finalite2+" "+my_summary_file)
+os.system("mv "+FileSumUpTwo+" "+my_summary_file)
 poly2file=results+'-Polymorph'
 new_name=poly2file.replace("-Sequence-Polymorph","-Polymorph-Sequence")
 os.system("mv "+poly2file+" "+new_name)
@@ -2371,7 +2372,7 @@ if os.getcwd()==(name_folder_results):
 	os.system("rm UnresolvableStep*")
 	os.system("rm List-Present-Absent-Polymorph*")
 	os.system("rm ErrorIfNotEmpty")
-        os.system("rm "+FileSumUpTwo)
+        # os.system("rm "+FileSumUpTwo)
 
 #to here""" 
 
