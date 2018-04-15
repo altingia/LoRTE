@@ -3,8 +3,8 @@
 #PBS -l nodes=1:ppn=28:cmbnode -l mem=60gb
 #PBS -V
 #PBS -N LoRTEv1.2_sapelo
-#PBS -o /lustre1/sh60271/LoRTE/0412_test
-#PBS -e /lustre1/sh60271/LoRTE/0412_test
+#PBS -o /lustre1/sh60271/LoRTE/0414_test2
+#PBS -e /lustre1/sh60271/LoRTE/0414_test2
 #PBS -M shhan@uga.edu
 #PBS -m ae
 #PBS -j oe
